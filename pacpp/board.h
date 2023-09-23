@@ -1,10 +1,12 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "color.h"
+#include "ascii.h"
 #include "terminal_manager.h"
 #include <cstring>
 #include <iostream>
+
+using namespace ascii;
 
 class Board {
 public:

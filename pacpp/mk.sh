@@ -1,1 +1,1 @@
-clang++ -std=c++11 -o pacpp main.cpp
+clang++ -std=c++20 -o pacpp main.cpp

@@ -1,10 +1,12 @@
 #ifndef TERMINAL_MANAGER_H
 #define TERMINAL_MANAGER_H
 
-#include "color.h"
+#include "ascii.h"
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
+
+using namespace ascii;
 
 class TerminalManager {
 public:
@@ -26,16 +28,16 @@ public:
     t.c_lflag &= ~ICANON;
     t.c_lflag &= ~ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &t);
-    std::cout << "\033[?25l"; // Hide the cursor
+    std::cout << cursor::HIDE;
   }
 
   void restore() {
     tcsetattr(STDIN_FILENO, TCSANOW, &original_termios);
-    std::cout << "\033[?25h"; // Show the cursor
+    std::cout << cursor::SHOW;
   }
 
   void move_cursor(unsigned int row, unsigned int col) {
-    std::cout << "\033[" << row << ";" << col << "H";
+    std::cout << cursor::MOVE(row, col);
   }
 
 private:
