@@ -26,6 +26,6 @@ string MOVE(unsigned int row, unsigned int col) {
   return format("\033[{};{}H", row, col);
 }
 } // namespace cursor
-} // namespace special_ascii
+} // namespace ascii
 
 #endif
