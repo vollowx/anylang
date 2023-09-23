@@ -2,7 +2,7 @@
 #define BOARD_H
 
 #include "ascii.h"
-#include "terminal_manager.h"
+#include "terminal.h"
 #include <cstring>
 #include <iostream>
 
@@ -10,9 +10,10 @@ using namespace ascii;
 
 class Board {
 public:
-  Board(const char **map) {
+  Board(const char **map, Terminal &terminal) {
     height = sizeof(map[0]) + 2;
     width = strlen(map[0]);
+    terminal = terminal;
 
     board = new char *[height];
     previous_board = new char *[height];
@@ -50,14 +51,11 @@ public:
         if (current_char != previous_board[i][j]) {
           // Set text color based on the character
           if (current_char == '#') {
-            std::cout << color::WHITE; // White for borders
-          } else if (current_char == '.') {
-            std::cout << color::BLACK; // Black for dots
+            std::cout << color::BLACK; // for borders
           } else if (current_char == '$') {
-            std::cout << color::BLUE; // Blue for the player
+            std::cout << color::YELLOW; // for the player
           }
-          // Move cursor to position (j, i)
-          terminal_manager.move_cursor(i + 1, j * 2 + 1);
+          terminal.move_cursor(i + 1, j * 2 + 1);
           std::cout << current_char << " ";
           previous_board[i][j] = current_char;
           // Reset text color to default
@@ -78,7 +76,7 @@ public:
   }
 
 private:
-  TerminalManager terminal_manager; // Added TerminalManager as a member
+  Terminal terminal;
 };
 
 #endif

@@ -1,21 +1,21 @@
 #include "board.h"
-#include "terminal_manager.h"
+#include "terminal.h"
 
 int main() {
-  TerminalManager terminal_manager;
-  terminal_manager.clear_screen();
+  Terminal terminal;
+  terminal.clear_screen();
 
-  const char *map[10] = {"#####################", "#.............. ....#",
-                         "#.########.########.#", "#.#......#.#......#.#",
-                         "#.#.####.#.#.####.#.#", "#.#.#..#.#.#.#..#.#.#",
-                         "#...#..#.....#..#...#", "#.###..###.###..###.#",
-                         "#...................#", "#####################"};
+  const char *map[10] = {"#####################", "#                   #",
+                         "# ######## ######## #", "# #      # #      # #",
+                         "# # #### # # #### # #", "# # #  # # # #  # # #",
+                         "#   #  #     #  #   #", "# ###  ### ###  ### #",
+                         "#                   #", "#####################"};
 
-  Board board{map};
+  Board board{map, terminal};
 
   while (true) {
     board.render_board();
-    char c = terminal_manager.getInput();
+    char c = terminal.get_input();
     switch (c) {
     case 'k': // Move up
       board.move_player(board.player_x, board.player_y - 1);
@@ -30,8 +30,8 @@ int main() {
       board.move_player(board.player_x + 1, board.player_y);
       break;
     case 'q':
-      terminal_manager.clear_screen();
-      terminal_manager.move_cursor(board.height, 0);
+      terminal.clear_screen();
+      terminal.move_cursor(board.height, 0);
       return 0;
     }
   }

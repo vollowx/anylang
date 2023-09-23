@@ -8,14 +8,14 @@
 
 using namespace ascii;
 
-class TerminalManager {
+class Terminal {
 public:
-  TerminalManager() { init(); }
-  ~TerminalManager() { restore(); }
+  Terminal() { init(); }
+  ~Terminal() { restore(); }
 
   void clear_screen() { std::cout << "\033[2J"; }
 
-  char getInput() {
+  char get_input() {
     char c;
     std::cin >> c;
     return c;
