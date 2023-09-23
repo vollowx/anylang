@@ -1,2 +1,5 @@
 # anylang
-Inspirations
+
+> Inspirations
+
+- [Pacman in C++](./pacpp/README.md)
