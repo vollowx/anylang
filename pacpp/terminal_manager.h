@@ -8,12 +8,10 @@
 
 class TerminalManager {
 public:
-  TerminalManager() { initTerminal(); }
-  ~TerminalManager() { closeTerminal(); }
+  TerminalManager() { init(); }
+  ~TerminalManager() { restore(); }
 
-  void clearTerminal() {
-    std::cout << "\033[2J"; // Clear the entire screen
-  }
+  void clear_screen() { std::cout << "\033[2J"; }
 
   char getInput() {
     char c;
@@ -21,27 +19,27 @@ public:
     return c;
   }
 
-  void initTerminal() {
+  void init() {
     struct termios t;
     tcgetattr(STDIN_FILENO, &t);
-    originalTermios = t;
+    original_termios = t;
     t.c_lflag &= ~ICANON;
     t.c_lflag &= ~ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &t);
     std::cout << "\033[?25l"; // Hide the cursor
   }
 
-  void closeTerminal() {
-    tcsetattr(STDIN_FILENO, TCSANOW, &originalTermios);
+  void restore() {
+    tcsetattr(STDIN_FILENO, TCSANOW, &original_termios);
     std::cout << "\033[?25h"; // Show the cursor
   }
 
-  void moveCursor(unsigned int row, unsigned int col) {
+  void move_cursor(unsigned int row, unsigned int col) {
     std::cout << "\033[" << row << ";" << col << "H";
   }
 
 private:
-  struct termios originalTermios;
+  struct termios original_termios;
 };
 
 #endif

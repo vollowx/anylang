@@ -2,36 +2,36 @@
 #include "terminal_manager.h"
 
 int main() {
-  TerminalManager terminalManager;
-  terminalManager.clearTerminal();
+  TerminalManager terminal_manager;
+  terminal_manager.clear_screen();
 
-  const char *customMaze[10] = {
+  const char *map[10] = {
       "#####################", "#.............. ....#", "#.########.########.#",
       "#.#......#.#......#.#", "#.#.####.#.#.####.#.#", "#.#.#..#.#.#.#..#.#.#",
       "#...#..#.....#..#...#", "#.###..###.###..###.#", "#...................#",
       "#####################"};
 
-  Board board{customMaze};
+  Board board{map};
 
   while (true) {
-    board.printBoard();
-    char c = terminalManager.getInput();
+    board.render_board();
+    char c = terminal_manager.getInput();
     switch (c) {
     case 'k': // Move up
-      board.playerMove(board.playerX, board.playerY - 1);
+      board.move_player(board.player_x, board.player_y - 1);
       break;
     case 'h': // Move left
-      board.playerMove(board.playerX - 1, board.playerY);
+      board.move_player(board.player_x - 1, board.player_y);
       break;
     case 'j': // Move down
-      board.playerMove(board.playerX, board.playerY + 1);
+      board.move_player(board.player_x, board.player_y + 1);
       break;
     case 'l': // Move right
-      board.playerMove(board.playerX + 1, board.playerY);
+      board.move_player(board.player_x + 1, board.player_y);
       break;
     case 'q':
-      terminalManager.clearTerminal();
-      terminalManager.moveCursor(board.height, 0);
+      terminal_manager.clear_screen();
+      terminal_manager.move_cursor(board.height, 0);
       return 0;
     }
   }
