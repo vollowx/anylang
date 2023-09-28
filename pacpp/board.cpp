@@ -3,9 +3,11 @@
 #include <cstring>
 #include <iostream>
 
-Board::Board(const char **map) {
-  height = sizeof(map[0]) + 2;
+Board::Board(const char *map[]) {
   width = strlen(map[0]);
+  while (strlen(map[height])) {
+    height++;
+  };
 
   board = new char *[height];
   previous_board = new char *[height];
@@ -38,8 +40,8 @@ void Board::render() {
         } else if (current_char == '$') { // player
           std::cout << colors::YELLOW;
         }
-        terminal::move_cursor(i + 1, j * 2 + 1);
-        std::cout << current_char << " ";
+        terminal::set_cursor_position(i + 1, j * 2 + 1);
+        std::wcout << current_char << " ";
         previous_board[i][j] = current_char;
         std::cout << colors::RESET;
       }
@@ -48,11 +50,29 @@ void Board::render() {
   std::cout << flush;
 }
 
-bool Board::move_player(unsigned int x, unsigned int y) {
+bool Board::set_player_position(unsigned int x, unsigned int y) {
   if (x < width && y < height && board[y][x] != '#') {
     player_x = x;
     player_y = y;
     return true;
   }
   return false;
+}
+
+void Board::set_player_direction(enum direction dir) {
+  switch (dir) {
+  case UP:
+    set_player_position(player_x, player_y - 1);
+    break;
+  case DOWN:
+    set_player_position(player_x, player_y + 1);
+    break;
+  case LEFT:
+    set_player_position(player_x - 1, player_y);
+    break;
+  case RIGHT:
+    set_player_position(player_x + 1, player_y);
+    break;
+  }
+  player_direction = dir;
 }

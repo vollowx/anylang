@@ -40,7 +40,7 @@ inline void set_raw_mode(bool flag) {
   }
 }
 
-inline void move_cursor(uint32_t row, uint32_t col) {
+inline void set_cursor_position(uint32_t row, uint32_t col) {
   std::cerr << "\033[" << row << ";" << col << "H";
 }
 
