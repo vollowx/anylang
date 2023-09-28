@@ -59,20 +59,4 @@ bool Board::set_player_position(unsigned int x, unsigned int y) {
   return false;
 }
 
-void Board::set_player_direction(enum direction dir) {
-  switch (dir) {
-  case UP:
-    set_player_position(player_x, player_y - 1);
-    break;
-  case DOWN:
-    set_player_position(player_x, player_y + 1);
-    break;
-  case LEFT:
-    set_player_position(player_x - 1, player_y);
-    break;
-  case RIGHT:
-    set_player_position(player_x + 1, player_y);
-    break;
-  }
-  player_direction = dir;
-}
+void Board::set_player_direction(enum direction dir) { player_direction = dir; }

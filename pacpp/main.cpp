@@ -1,5 +1,6 @@
 #include "board.h"
 #include "colors.h"
+#include "game.h"
 #include "terminal.h"
 #include <csignal>
 
@@ -60,43 +61,7 @@ int main() {
   // clang-format on
 
   Board board{map};
-
-  board.render();
-
-  while (true) {
-    int c = quick_read();
-    switch (c) {
-    case ARROW_UP:
-    case 'k':
-    case 'w': // Move up
-      board.set_player_direction(UP);
-      board.render();
-      break;
-    case ARROW_LEFT:
-    case 'h':
-    case 'a': // Move left
-      board.set_player_direction(LEFT);
-      board.render();
-      break;
-    case ARROW_DOWN:
-    case 'j':
-    case 's': // Move down
-      board.set_player_direction(DOWN);
-      board.render();
-      break;
-    case ARROW_RIGHT:
-    case 'l':
-    case 'd': // Move right
-      board.set_player_direction(RIGHT);
-      board.render();
-      break;
-    case 'q':
-      set_cursor_position(board.height + 1, 0);
-      return 0;
-    case ERR:
-      usleep(10'000);
-    }
-  }
+  Game game{board};
 
   return 0;
 }
