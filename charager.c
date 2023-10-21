@@ -21,6 +21,14 @@ struct World {
   struct Preferences config;
 };
 
+void init_world(struct World *world) {
+  world->width = WORLD_WIDTH;
+  world->height = WORLD_HEIGHT;
+  world->player.x = world->width / 2;
+  world->player.y = world->height / 2;
+  world->config.debug = false;
+}
+
 int ch = 0;
 
 unsigned rendered;
@@ -120,10 +128,8 @@ void move_player(struct World *world, int y, int x) {
 int main() {
   init_curses();
 
-  struct World world = {
-      .width = WORLD_WIDTH,
-      .height = WORLD_HEIGHT,
-  };
+  struct World world;
+  init_world(&world);
 
   do {
     switch (ch) {
@@ -146,6 +152,10 @@ int main() {
     case 'd':
     case 'l':
       move_player(&world, world.player.y, world.player.x + 1);
+      break;
+
+    case 'r':
+      init_world(&world);
       break;
 
     case '\\':
