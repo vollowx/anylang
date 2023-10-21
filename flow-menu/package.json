@@ -1,0 +1,16 @@
+{
+  "name": "flow-menu",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Vollow",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [
+    "menu"
+  ],
+  "devDependencies": {
+    "sass": "^1.62.1",
+    "vite": "^4.3.9"
+  }
+}
