@@ -1,5 +1,21 @@
 import { FlowMenu } from "./flow-menu.js";
 
+type Languages = "en-US" | "en-UK" | "zh-CN";
+type Directions = "vertical" | "horizontal";
+
+const archive = {
+  delete: (index: number) => {},
+  start: (index: number) => {},
+};
+
+const language = {
+  set: (value: Languages) => {},
+};
+
+const direction = {
+  set: (value: Directions) => {},
+};
+
 const pages = {
   main: {
     header: "flow menu",
@@ -56,11 +72,11 @@ const pages = {
       },
       {
         label: "delete",
-        callback: () => archives.delete(1),
+        callback: () => archive.delete(1),
       },
       {
         label: "start",
-        callback: () => archives.start(1),
+        callback: () => archive.start(1),
       },
     ],
   },
@@ -73,11 +89,11 @@ const pages = {
       },
       {
         label: "delete",
-        callback: () => archives.delete(2),
+        callback: () => archive.delete(2),
       },
       {
         label: "start",
-        callback: () => archives.start(2),
+        callback: () => archive.start(2),
       },
     ],
   },
@@ -138,9 +154,9 @@ const pages = {
   },
 };
 
-const container = document.querySelector(".container");
-const header = container.querySelector(".header");
-const items = container.querySelector(".items");
+const container = document.querySelector(".container") as HTMLElement;
+const header = container!.querySelector(".header")!;
+const items = container!.querySelector(".items")!;
 const controller = new FlowMenu(container);
 
 function navigateTo(where: string) {

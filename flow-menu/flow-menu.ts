@@ -1,5 +1,5 @@
 export class FlowMenu {
-  el: HTMLElement | null;
+  el: HTMLElement;
   get items(): HTMLButtonElement[] {
     return [...this.el!.querySelectorAll("button")];
   }

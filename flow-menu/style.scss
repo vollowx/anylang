@@ -63,20 +63,14 @@ body {
   transition: 360ms cubic-bezier(0, 1.4, 0.8, 1);
   transform-origin: center center;
   z-index: -1;
-}
-.indicator.up {
-  transform: translate(-4px, 0) scale(1.01);
-}
-.indicator.down {
-  transform: translate(4px, 0) scale(1.01);
-}
-.vert .up {
-  transform: translate(0, -4px) scale(1.01);
-}
-.vert .down {
-  transform: translate(0, 4px) scale(1.01);
-}
-.indicator.press {
-  transform: scale(0.98, 0.88);
-  margin: 0 !important;
+  &.up {
+    transform: translate(0, -4px) scale(1.01);
+  }
+  &.down {
+    transform: translate(0, 4px) scale(1.01);
+  }
+  &.press {
+    transform: scale(0.98, 0.88);
+    margin: 0 !important;
+  }
 }
