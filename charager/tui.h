@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+void init_ncurses();
+
+void clean_ncurses();
+
 struct BoxConf {
   unsigned left;
   unsigned top;

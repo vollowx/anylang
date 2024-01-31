@@ -1,5 +1,32 @@
 #include "tui.h"
 
+void init_ncurses() {
+  initscr();            // Initialize the window
+  noecho();             // Don't echo any keypresses
+  curs_set(FALSE);      // Don't display a cursor
+  keypad(stdscr, TRUE); // Enable keypad mode
+  start_color();
+
+  init_pair(1, COLOR_BLACK, COLOR_BLACK);
+  init_pair(2, COLOR_MAGENTA, COLOR_MAGENTA);
+
+  init_pair(3, COLOR_GREEN, COLOR_BLACK);
+  init_pair(4, COLOR_RED, COLOR_BLACK);
+  init_pair(5, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(6, COLOR_BLUE, COLOR_BLACK);
+  init_pair(7, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(8, COLOR_CYAN, COLOR_BLACK);
+
+  init_pair(11, COLOR_BLACK, COLOR_RED);
+  init_pair(12, COLOR_BLACK, COLOR_GREEN);
+  init_pair(13, COLOR_BLACK, COLOR_YELLOW);
+  init_pair(14, COLOR_BLACK, COLOR_BLUE);
+  init_pair(15, COLOR_BLACK, COLOR_MAGENTA);
+  init_pair(16, COLOR_BLACK, COLOR_CYAN);
+}
+
+void clean_ncurses() { endwin(); }
+
 void render_box(struct BoxConf config) {
   config.width -= 1;
   config.height -= 1;
@@ -51,8 +78,8 @@ void render_box(struct BoxConf config) {
 
 char *render_progressbar(int value, int max) {
   char *bar = malloc(max + 1);
-  for (int i = max - 1; i >= 0; i--) {
-    if (i >= value) {
+  for (int i = 0; i < max; i++) {
+    if (max - i <= value) {
       bar[i] = '#';
     } else {
       bar[i] = '.';
